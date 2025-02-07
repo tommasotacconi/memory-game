@@ -1,0 +1,75 @@
+/* Css reset */ 
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+/* Main dimension */
+:root {
+	--p-field-w: 65%;
+	--main-box-pd: 15px;
+}
+
+body {
+	font-family: Calibri, 'Trebuchet MS', sans-serif;
+	color: #fff;
+	background-color: #2600ff
+}
+
+h1 {
+	font-size: 1.5rem;
+}
+
+.img-fluid {
+	max-width: 100%;
+	height: auto;
+}
+
+/* Utility */
+.container {
+	margin: 10px auto;
+	max-width: 1200px;
+	display: flex;
+}
+
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -10px;
+}
+
+.col {
+	width: calc(100% / 4);
+	aspect-ratio: 1;
+	padding: 10px;
+	/* border: 2px solid #fff; */
+}
+
+/* Playing field box */
+#playing-field {
+	width: var(--p-field-w);
+	padding: 0 10px;
+	border: 1px solid #fff;
+}
+
+ /* Game console box */
+#game-console {
+	width: calc(100% - var(--p-field-w));
+	padding: var(--main-box-pd);
+	border: 1px solid grey;
+	
+	img {
+		margin: 10px 0 50px;
+	}
+}
+
+.game-description {
+	font-size: 3rem;
+	padding: var(--main-box-pd);
+}
+
+.errors {
+	margin-top: 50px;
+	font-size: 4.5rem;
+}
