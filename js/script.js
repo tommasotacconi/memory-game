@@ -18,10 +18,10 @@ function createGrid(rows, cols, field) {
  * 
  * @param {Number} colNumber 
  */
-function createCard(cardFileName) {
-	const img = `<img class="img-fluid" src="images/${cardFileName}" alt="game-card">`;
-	const card = `<div class="card">${img}</div>`;
-	return card;
+function createCardFace(face, cardFileName) {
+	// Return a srtring to construct a card face
+	const faceImg = `<img class="img-fluid" src="images/${cardFileName}" alt="game-card-front">`;
+	return `<div class="card-${face}">${faceImg}</div>`;
 }
 
 /**
@@ -50,9 +50,22 @@ function drawCards(totCards) {
  * @param {Node} target 
  */
 function watchCard(event, positionId) {
-	selectedCardBack = event.currentTarget;
 	const watchedCard = cardsPositions[positionId - 1];
-	selectedCardBack.src = `images/${watchedCard.name}`;
+	const card = event.currentTarget;
+	if (!card.querySelector('.card-front')) {
+		const cardFront = createCardFace('front', watchedCard.name); 
+		card.innerHTML += cardFront;
+		card.classList.add('card-rotated');
+	} else {
+		card.classList.remove('card-rotated');
+		if (!timeout) {
+			frontCard = card.querySelector('.card-front');
+			timeout = setTimeout(() => {
+				card.removeChild(frontCard);
+				timeout = null;
+			}, 1000)
+		};
+	}
 }
 
 // SETUP PHASE
@@ -66,16 +79,18 @@ const cardsType = [
 	{id: 4, name: 'spaceship.png'}, 
 	{id: 5, name: 'tiktac.png'} 
 ];
-
+let timeout;
 createGrid(4, 4, playingField);
 const cardsPositions = drawCards(4*4);
+// Inserts cards in play field
 for (let i = 1; i <= 4 * 4; i++) {
 	let col = document.querySelector(`#position${i}`);
-	const card = createCard('back.png');
+	const cardBack = createCardFace('back', 'back.png');
+	const card = `<div class="card">${cardBack}</div>`;
 	col.innerHTML = card;
-	img = document.querySelector(`#position${i} img`);
-	console.log(img);
-	img.addEventListener('click', (e) => {
+	// Event listeners for click
+	gameCard = document.querySelector(`#position${i} .card`);
+	gameCard.addEventListener('click', (e) => {
 		watchCard(e, i);
 	});
 }

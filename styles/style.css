@@ -44,16 +44,43 @@ h1 {
 	aspect-ratio: 1;
 	padding: 10px;
 	/* border: 2px solid #fff; */
+	perspective: 900px;
 }
 
-/* Playing field box */
+/* ---Playing field box--- */
 #playing-field {
 	width: var(--p-field-w);
 	padding: 0 10px;
 	border: 1px solid #fff;
 }
+/* Card rotate effect */
+.card {
+	aspect-ratio: 1;
+	position: relative;
+	/* border: 2px solid lightslategray; */
+	transform-style: preserve-3d;
+	transition: transform 2s;
+}
 
- /* Game console box */
+.card-back, .card-front {
+	height: 100%;
+	position: absolute;
+	backface-visibility: hidden;
+}
+
+/* .card-back {
+	border: 2px solid lightblue;
+} */
+
+.card-front {
+	transform: rotateY(180deg)
+}
+
+.card-rotated {
+	transform: rotateY(180deg);
+}
+
+ /* ---Game console box--- */
 #game-console {
 	width: calc(100% - var(--p-field-w));
 	padding: var(--main-box-pd);
