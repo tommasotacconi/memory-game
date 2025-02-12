@@ -51,7 +51,6 @@ h1 {
 #playing-field {
 	width: var(--p-field-w);
 	padding: 0 10px;
-	border: 1px solid #fff;
 }
 /* Card rotate effect */
 .card {
@@ -59,7 +58,7 @@ h1 {
 	position: relative;
 	/* border: 2px solid lightslategray; */
 	transform-style: preserve-3d;
-	transition: transform 2s;
+	transition: transform 0.6s;
 }
 
 .card-back, .card-front {
@@ -81,10 +80,9 @@ h1 {
 }
 
  /* ---Game console box--- */
-#game-console {
+#console {
 	width: calc(100% - var(--p-field-w));
 	padding: var(--main-box-pd);
-	border: 1px solid grey;
 	
 	img {
 		margin: 10px 0 50px;
@@ -99,4 +97,5 @@ h1 {
 .errors {
 	margin-top: 50px;
 	font-size: 4.5rem;
+	text-align: center;
 }
