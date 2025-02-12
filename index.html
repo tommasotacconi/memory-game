@@ -9,6 +9,7 @@
 		<title>Memory🧩</title>
 		<!-- Link -->
 		<!-- js script-->
+		<script src="js/functions.js" defer></script>
 		<script src="js/script.js" defer></script>
 		<link rel="stylesheet" href="styles/style.css">
 	</head>
@@ -21,12 +22,14 @@
 			</main>
 			
 			<!-- Game title and dashboard for info and scores -->
-			<div id="game-console">
+			<div id="console">
 				<header>
 					<img class="img-fluid" src="images/logo.png" alt="Memory game">
-					<p class="game-description">Abbina i simboli uguali e scopri tutta la griglia</p>
-					<p class="errors">Errori: </p>
 				</header>
+				<div class="console-text-box">
+					<p class="game-description">Abbina i simboli uguali e scopri tutta la griglia</p>
+				</div>
+				<p class="errors">Errori: <span class="errors-number"></span></p>
 			</div>
 
 		</div>
