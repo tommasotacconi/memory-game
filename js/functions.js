@@ -76,15 +76,14 @@ function createCardFace(face, cardFileName) {
  * Inserts a front-card with image to watch it or removes it; rotates card with class 'card-rotated'
  * 
  * @param {Event} event 
- * @param {Number} positionId 
+ * @param {Number} positionId playing field card positionId
  */
 function rotateCard(event, positionId, mixedDeck) {
-	const watchedCard = mixedDeck[positionId];
-	console.table(watchedCard, positionId);
+	const watchedCard = mixedDeck[positionId - 1];
 	const card = event.currentTarget;
 	
 	if (!card.querySelector('.card-front')) {
-		playerCards.push({name: watchedCard, positionId});
+		playerCards.push({name: watchedCard, card, cardPosId: positionId});
 		const cardFront = createCardFace('front', watchedCard); 
 		card.innerHTML += cardFront;
 		card.classList.add('card-rotated');
@@ -114,11 +113,36 @@ function checkCardsPair(cards) {
 	if (cards.length === 2) {
 		if (cards[0].name === cards[1].name) {
 			result = true;
-			console.log('Hai trovato una coppia di carte')
 		}	else {
 			errors++;
 		}
 	}
 
 	return result;
+}
+
+
+/**
+ * Count errors and disables clicks on pair of cards correctly remembered  
+ * 
+ * @param {Boolean} isCardRotated
+ */
+const managesPlayerClick = (isCardRotated) => {
+	// Checks if the card was already rotated to prevent calculation for rotated card
+	if (!isCardRotated) {
+		const moveResult = checkCardsPair(playerCards);
+		if (!moveResult) {
+			const errorsNumber = document.querySelector('#console .errors-number');
+			errorsNumber.innerHTML = errors;
+		} else {
+			playerCards.forEach((element, index) => {
+				console.log("Rimuovo l'event listener dalla callback di id: ", playerCards[index].cardPosId);
+				const elementCallback = callbacks[playerCards[index].cardPosId - 1];
+				element.card.removeEventListener('click', elementCallback);
+			})
+		}
+	}
+	if (playerCards.length === 2) {
+		playerCards.splice(0, 2);
+	}
 }
